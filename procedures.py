@@ -19,13 +19,19 @@ class PatientProcedure:
         
 def analyze_procedure_patient():
     procedureData = pc.get_procedures()
-    procedures = procedureData["data"]
+    procedures = procedureData["data"] 
     patientProcedures = []
     for procedure in procedures:
-        patientProcedure = PatientProcedure()
-        patientProcedure.procedureId = procedure["id"]
-        patientProcedure.procedureLocalId = procedure["localId"]
-        patientProcedure.dataSource = procedure["dataSource"]
+# =============================================================================
+#         patientProcedure = PatientProcedure()
+#         patientProcedure.procedureId = procedure["id"]
+#         patientProcedure.procedureLocalId = procedure["localId"]
+#         patientProcedure.dataSource = procedure["dataSource"]
+# =============================================================================
+        patientProcedure = []
+        patientProcedure.append(procedure["id"])
+        patientProcedure.append(procedure["localId"])
+        patientProcedure.append(procedure["dataSource"])
         
         patientProcedures.append(patientProcedure)
         
@@ -33,17 +39,32 @@ def analyze_procedure_patient():
 
 
 def writeDataToCsv():
+    """
+    write data to csv with python csv module
+    """
     procedurePatients = analyze_procedure_patient()
     filename = 'procedure-patient-sample.csv'
-    fields = ['procedureId', 'procedureLocalId', 'dataSource']
-    with open(filename, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(fields)
-        writer.writerows(procedurePatients)
-    # df = pd.DataFrame(procedurePatients)
-    # df.to_csv("procedure-patient-sample.csv", encoding='utf-8')
+    fields = ['ProcedureId', 'ProcedureLocalId', 'DataSource']
+    
+    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+        # creating a csv writer object
+        csvwriter = csv.writer(csvfile)
+        # writing the fields
+        csvwriter.writerow(fields)
+        # writing the data rows
+        csvwriter.writerows(procedurePatients)
+        
 
+def writeDataToCsvWithPanda():
+    """
+    write data to csv with Pandas
+    """
+    procedurePatients = analyze_procedure_patient()
+    df = pd.DataFrame(procedurePatients, 
+                      columns = ['ProcedureId', 'ProcedureLocalId', 'DataSource'])
+    df.to_csv("procedure-patient-sample.csv", encoding='utf-8', index = False)
 
 if __name__ == '__main__':
-    writeDataToCsv()
+    # writeDataToCsv()
+    writeDataToCsvWithPanda()
         
