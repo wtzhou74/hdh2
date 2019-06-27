@@ -3,13 +3,13 @@
 import json
 import requests
 from requests.auth import HTTPBasicAuth
-import pandas as pd
 
 import constants
 
 def call_hdh_api(api_uri):
     """
-    call API to get data
+    send api request
+    :type api_uri: string
     """
     response = requests.get(api_uri, headers=constants.HEADERS, 
                             auth=HTTPBasicAuth(constants.HDH_USER_NAME, constants.PASSWORD))
@@ -38,3 +38,8 @@ def call_hdh_api(api_uri):
     else:
         print('[?] Unexpected Error: [HTTP {0}]: Content: {1}'.format(response.status_code, response.content))
         return None
+    
+if __name__ == '__main__':
+    uri = '{0}/patients'.format(constants.API_URL_BASE)
+    response = call_hdh_api(uri)
+    print(response.status_code)
