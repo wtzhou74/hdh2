@@ -15,7 +15,7 @@ def call_hdh_api(api_uri):
                             auth=HTTPBasicAuth(constants.HDH_USER_NAME, constants.PASSWORD))
     
     if response.status_code == 200:
-        print('success to reach patient api')
+        print('success to reach the api')
         # print(type(response.content.decode('utf-8'))) # json string
         return json.loads(response.content.decode('utf-8')) # dict
         # return response.content.decode('utf-8')
