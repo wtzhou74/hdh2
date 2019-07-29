@@ -31,20 +31,16 @@ class DataToExternalFile:
         df.to_excel(self.path, encoding='utf-8', index = False)
         
         
-    def writeDataToCsv(self):
+    def writeDataToCsv(self, source, columns):
         """
         write data to csv with python csv module
-        """
-        procedurePatients = procedure.analyze_procedure_patient()
-        filename = 'procedure-patient-sample.csv'
-        fields = ['ProcedureId', 'ProcedureLocalId', 'DataSource']
-        
-        with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+        """         
+        with open(self.path, 'w', newline='', encoding='utf-8') as csvfile:
             # creating a csv writer object
             csvwriter = csv.writer(csvfile)
             # writing the fields
-            csvwriter.writerow(fields)
+            csvwriter.writerow(columns)
             # writing the data rows
-            csvwriter.writerows(procedurePatients)
+            csvwriter.writerows(source)
     
         

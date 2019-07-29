@@ -49,9 +49,13 @@ def writeData(source):
     # file, e.g. excel, csv etc. headers
     columns = ['ProcedureId', 'ProcedureLocalId', 'DataSource']
     
-    to_file = out.DataToExternalFile("../output/procedure-patient-sample2.xlsx")
     # write data
-    to_file.writeDataToCsvWithPanda(data, columns);
+    
+    # to_file = out.DataToExternalFile("../output/procedure-patient-sample2.excel")
+    to_file = out.DataToExternalFile(r'C:\path\to\pp-test1.csv')    
+    # to_file = out.DataToExternalFile("../output/procedure-patient-sample2.csv")
+    # to_file.writeDataToCsvWithPanda(data, columns);
+    to_file.writeDataToCsv(data, columns)
     
 
 if __name__ == '__main__':
